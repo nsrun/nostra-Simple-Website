@@ -1,7 +1,3 @@
-#Certainly! Here's a sample README description for a project named "nostra-Simple-Website" that includes HTML and CSS:
-
----
-
 # nostra-Simple-Website
 
 **nostra-Simple-Website** is a basic, responsive website built using HTML and CSS. It serves as a simple template for creating a clean and modern web page. The website includes essential sections such as a header, navigation bar, main content area, and footer.
