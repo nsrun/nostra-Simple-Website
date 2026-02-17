@@ -5,112 +5,49 @@ const products = [
         name: "Classic Denim Jacket",
         category: "men",
         price: 89.99,
-        image: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+        image: "https://images.unsplash.com/photo-1576872381149-78ef7b73cc82?q=80&w=2000&auto=format&fit=crop"
     },
     {
         id: 2,
-        name: "Summer Dress",
+        name: "Summer Floral Dress",
         category: "women",
         price: 79.99,
-        image: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+        image: "https://images.unsplash.com/photo-1549474843-ed8330ad0ed9?q=80&w=2000&auto=format&fit=crop"
     },
     {
         id: 3,
-        name: "Leather Wallet",
+        name: "Premium Leather Wallet",
         category: "accessories",
         price: 49.99,
-        image: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+        image: "https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=2000&auto=format&fit=crop"
     },
     {
         id: 4,
-        name: "Kids T-Shirt Set",
+        name: "Kids Explorer T-Shirt",
         category: "kids",
         price: 34.99,
-        image: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
+        image: "https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?q=80&w=2000&auto=format&fit=crop"
     },
     {
         id: 5,
-        name: "Casual Sneakers",
+        name: "Urban Sneakers",
         category: "men",
         price: 99.99,
-        image: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
+        image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=2000&auto=format&fit=crop"
     },
     {
         id: 6,
         name: "Elegant Handbag",
         category: "women",
         price: 129.99,
-        image: "linear-gradient(135deg, #30cfd0 0%, #330867 100%)"
+        image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=2000&auto=format&fit=crop"
     },
     {
         id: 7,
-        name: "Designer Sunglasses",
+        name: "Modern Sunglasses",
         category: "accessories",
         price: 149.99,
-        image: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
-    },
-    {
-        id: 8,
-        name: "Kids Sneakers",
-        category: "kids",
-        price: 59.99,
-        image: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"
-    },
-    {
-        id: 9,
-        name: "Formal Shirt",
-        category: "men",
-        price: 69.99,
-        image: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)"
-    },
-    {
-        id: 10,
-        name: "Silk Scarf",
-        category: "women",
-        price: 39.99,
-        image: "linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%)"
-    },
-    {
-        id: 11,
-        name: "Smart Watch",
-        category: "accessories",
-        price: 199.99,
-        image: "linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)"
-    },
-    {
-        id: 12,
-        name: "Kids Backpack",
-        category: "kids",
-        price: 44.99,
-        image: "linear-gradient(135deg, #f77062 0%, #fe5196 100%)"
-    },
-    {
-        id: 13,
-        name: "Wool Sweater",
-        category: "men",
-        price: 84.99,
-        image: "linear-gradient(135deg, #c471f5 0%, #fa71cd 100%)"
-    },
-    {
-        id: 14,
-        name: "Evening Gown",
-        category: "women",
-        price: 159.99,
-        image: "linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)"
-    },
-    {
-        id: 15,
-        name: "Leather Belt",
-        category: "accessories",
-        price: 29.99,
-        image: "linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)"
-    },
-    {
-        id: 16,
-        name: "Kids Dress",
-        category: "kids",
-        price: 39.99,
-        image: "linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)"
+        image: "https://images.unsplash.com/photo-1511499767390-a8a196109e92?q=80&w=2000&auto=format&fit=crop"
     }
 ];
 
@@ -121,7 +58,7 @@ let searchQuery = '';
 function displayProducts(productsToDisplay) {
     const productsGrid = document.getElementById('productsGrid');
     const noResults = document.getElementById('noResults');
-    
+
     if (!productsGrid) return;
 
     if (productsToDisplay.length === 0) {
@@ -132,10 +69,10 @@ function displayProducts(productsToDisplay) {
 
     productsGrid.style.display = 'grid';
     noResults.style.display = 'none';
-    
-    productsGrid.innerHTML = productsToDisplay.map(product => `
-        <div class="product-card">
-            <div class="product-image" style="background: ${product.image}"></div>
+
+    productsGrid.innerHTML = productsToDisplay.map((product, index) => `
+        <div class="product-card reveal active" style="transition-delay: ${index * 0.05}s">
+            <div class="product-image" style="background-image: url('${product.image}')"></div>
             <div class="product-info">
                 <h3>${product.name}</h3>
                 <p class="product-category">${capitalizeFirst(product.category)}</p>
@@ -151,7 +88,7 @@ function filterProducts() {
 
     // Filter by category
     if (currentCategory !== 'all') {
-        filteredProducts = filteredProducts.filter(product => 
+        filteredProducts = filteredProducts.filter(product =>
             product.category === currentCategory
         );
     }
@@ -180,8 +117,23 @@ function initCollectionsPage() {
 
     if (!filterButtons.length) return;
 
-    // Display all products initially
-    displayProducts(products);
+    // Check for category in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoryParam = urlParams.get('category');
+    if (categoryParam) {
+        currentCategory = categoryParam;
+        // Update button active state
+        filterButtons.forEach(btn => {
+            if (btn.getAttribute('data-category') === categoryParam) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    // Display initial products
+    filterProducts();
 
     // Filter button click handlers
     filterButtons.forEach(button => {
@@ -190,7 +142,7 @@ function initCollectionsPage() {
             filterButtons.forEach(btn => btn.classList.remove('active'));
             // Add active class to clicked button
             button.classList.add('active');
-            
+
             // Update current category
             currentCategory = button.getAttribute('data-category');
             filterProducts();
@@ -291,21 +243,82 @@ function initSmoothScroll() {
     });
 }
 
+// Intersection Observer for Reveal Animations
+function initRevealAnimations() {
+    const revealElements = document.querySelectorAll('.reveal, .fade-in');
+
+    const observerOptions = {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                // Optional: stop observing once revealed
+                // observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    revealElements.forEach(el => observer.observe(el));
+}
+
+// Dropdown Handler for Mobile
+function initDropdowns() {
+    const dropdowns = document.querySelectorAll('.dropdown');
+
+    dropdowns.forEach(dropdown => {
+        const link = dropdown.querySelector('a');
+
+        if (link) {
+            link.addEventListener('click', (e) => {
+                // Only prevent default and toggle if on mobile and has dropdown items
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+
+                    // Close other dropdowns
+                    dropdowns.forEach(other => {
+                        if (other !== dropdown) {
+                            other.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        }
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.dropdown')) {
+            dropdowns.forEach(d => d.classList.remove('active'));
+        }
+    });
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     initCollectionsPage();
     initContactForm();
     initHamburgerMenu();
+    initDropdowns();
     initSmoothScroll();
+    initRevealAnimations();
 
     // Add scroll effect to navbar
     const navbar = document.querySelector('.navbar');
     if (navbar) {
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
-                navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
+                navbar.style.background = 'rgba(255, 255, 255, 0.9)';
+                navbar.style.boxShadow = 'var(--shadow-md)';
+                navbar.style.padding = '0.5rem 0';
             } else {
-                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+                navbar.style.background = 'var(--glass)';
+                navbar.style.boxShadow = 'var(--shadow-sm)';
+                navbar.style.padding = '1rem 0';
             }
         });
     }
